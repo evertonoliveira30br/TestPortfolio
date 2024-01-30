@@ -1,4 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AssociadoEditar.aspx.cs" Inherits="TestPortfolioApp.AssociadoEditar" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EmpresaEditar.aspx.cs" Inherits="TestPortfolioApp.EmpresaEditar" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     
     <script src="Scripts/jquery-3.4.1.min.js"></script>  
@@ -16,89 +17,87 @@
             }
         }
 
-        function salvarAssociado() {            
+        function salvarEmpresa() {            
 
-            let associadoForm = {
+            let empresaForm = {
                 Id: $("[id$=txtId]").val(),
                 Nome: $("[id$=txtNome]").val(),
-                Cpf: $("[id$=txtCpf]").val(),
-                DataNascimento: $("#txtDataNascimento").val()
+                Cnpj: $("[id$=txtCnpj]").val()                
 
             };
 
-            if (associadoForm.Id == '' || associadoForm.Nome == '' || associadoForm.Cpf.length < 11 || associadoForm.DataNascimento.length < 10)
-            {
+            if (associadoForm.Id == '' || associadoForm.Nome == '' || associadoForm.Cnpj.length < 14) {
                 alert('Favor preencher todos os campos!');
                 return;
             }
-                
+
 
             $.ajax({
                 type: "PUT",
                 url: "https://localhost:44364/api/associados",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(associadoForm),
+                data: JSON.stringify(empresaForm),
                 success: function(d) {
-                    alert('Dados do Associado Alterado Com Sucesso');
+                    alert('Dados da Empresa Alterado Com Sucesso');
 
                 },
                 error: function (error) {
-                    alert('Erro ao alterar dados do Associado:' + error.responseText);
+                    alert('Erro ao alterar dados da Empresa:' + error.responseText);
                 }
             });
         }
 
-        function vincularEmpresa() {
+        function vincularAssociado() {
 
             let Id = $("[id$=txtId]").val();
-            let IdEmpresa = document.getElementById('ddlEmpresas').value;            
+            let IdAssociado = document.getElementById('ddlAssociados').value;            
 
             $.ajax({
                 type: "POST",
-                url: "https://localhost:44364/api/associados/" + Id + "/empresa/" + IdEmpresa,
+                url: "https://localhost:44364/api/empresas/" + Id + "/associado/" + IdAssociado,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",                
                 success: function (d) {
-                    alert('Empresa vinculada com sucesso');
-                    carregarEmpresas();
+                    alert('Associado vinculado com sucesso');
+                    carregarAssociados();
 
                 },
                 error: function (error) {
-                    alert('Erro ao vincular empresa. ' + error.responseText);
+                    alert('Erro ao vincular associado. ' + error.responseText);
                 }
             });
         }
 
-        function carregarEmpresas() {
+        function carregarAssociados() {
 
             let Id = $("[id$=txtId]").val();          
 
-            $.getJSON("https://localhost:44364/api/associados/" + Id + "/empresas",
+            $.getJSON("https://localhost:44364/api/empresas/" + Id + "/associados",
                 function (data) {
-                    $('#empresas').empty();
+                    $('#associados').empty();
                     $.each(data, function (key, val) {
 
-                        var row = '<td>' + val.Cnpj + '</td><td>' + val.Nome + '</td>';
+                        var row = '<td>' + val.Cpf + '</td><td>' + val.Nome + '</td>';
                         $('<tr/>', { html: row })
-                            .appendTo($('#empresas'));
+                            .appendTo($('#associados'));
                     });
                 });
         }        
 
         $(document).ready(function () {
 
-            carregarEmpresas();
+            carregarAssociados();
             
             $.ajax({
                 type: "GET",
-                url: "https://localhost:44364/api/empresas",
+                url: "https://localhost:44364/api/associados",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
                     
                     $(data).each(function () {
-                        $('#ddlEmpresas').append($('<option/>', {value:this.Id}).html(this.Nome));
+                        $('#ddlAssociados').append($('<option/>', {value:this.Id}).html(this.Nome));
                     });               
                   
                 },
@@ -109,14 +108,12 @@
 
             $.ajax({
                 type: "GET",
-                url: "https://localhost:44364/api/associados/" + $("[id$=txtId]").val(),
+                url: "https://localhost:44364/api/empresas/" + $("[id$=txtId]").val(),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (data) {
                     $("[id$=txtNome]").val(data.Nome);
-                    $("[id$=txtCpf]").val(data.Cpf);
-                    let nascimento = data.DataFormatada;
-                    $("#txtDataNascimento").val(nascimento);
+                    $("[id$=txtCnpj]").val(data.Cnpj);                  
 
                 },
                 error: function (error) {
@@ -135,7 +132,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     
         <div>
-            <h2>Editar Associado</h2>
+            <h2>Editar Empresa</h2>
             <div>
                 <label>Id</label> 
                 <br />
@@ -147,18 +144,14 @@
                 <asp:TextBox ID="txtNome" runat="server" />
             </div>
             <div>
-                <label>CPF</label>
+                <label>CNPJ</label>
                    <br />
-                <asp:TextBox ID="txtCpf" runat="server" MaxLength="11" onkeypress="return somenteNumeros(event)" />
+                <asp:TextBox ID="txtCnpj" runat="server" MaxLength="14" onkeypress="return somenteNumeros(event)" />
             </div>
-            <div>
-                <label>Data de Nascimento</label>
-                   <br />
-                <input type="date" id="txtDataNascimento" />             
-            </div>
+            
             <br />
             <div>
-                <input type="Button" onclick="salvarAssociado();" value="Salvar" />               
+                <input type="Button" onclick="salvarEmpresa();" value="Salvar" />               
             </div>
         </div> 
 
@@ -167,8 +160,8 @@
         <div>
             <h2>Empresas</h2>
             <div>
-                <select id="ddlEmpresas"></select>     
-                <input type="Button" id="btnAssociarEmpresa" onclick="vincularEmpresa();" value="Associar Empresa" /> 
+                <select id="ddlAssociados"></select>     
+                <input type="Button" id="btnVincularAssociado" onclick="vincularAssociado();" value="Vincular Associado" /> 
                 
             </div>
             <hr />          
@@ -176,11 +169,11 @@
                 <table style="width:70%;">
                     <thead>
                         <tr>                            
-                            <th>CNPJ</th>
-                            <th>Nome Empresa</th>                           
+                            <th>CPF</th>
+                            <th>Nome Associado</th>                           
                          </tr>
                     </thead>
-                    <tbody id="empresas">
+                    <tbody id="associados">
                     </tbody>
                 </table>
             </div>

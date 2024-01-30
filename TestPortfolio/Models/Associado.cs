@@ -11,5 +11,10 @@ namespace TestPortfolioAPI.Models
         public string Nome { get; set; }
         public string Cpf { get; set; }
         public DateTime DataNascimento { get; set; }
+
+        public string DataFormatada
+        {
+            get { return DataNascimento.ToString("yyyy-MM-dd"); }
+        }
     }
 }

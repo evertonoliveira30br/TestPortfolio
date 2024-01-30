@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using TestPortfolioAPI.Models;
@@ -24,7 +22,9 @@ namespace TestPortfolioAPI
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                var queryString = "DELETE Associado WHERE Id=@id";
+                var queryString = @"
+                    DELETE Associado_Empresa WHERE AssociadoId=@id;
+                    DELETE Associado WHERE Id=@id";
 
                 SqlCommand command = new SqlCommand(queryString, connection);
                 command.CommandType = System.Data.CommandType.Text;
@@ -68,9 +68,9 @@ namespace TestPortfolioAPI
 
                     return true;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    return false;
+                    throw ex;
                 }
                 
             }           
@@ -191,6 +191,9 @@ namespace TestPortfolioAPI
         public IEnumerable<Associado> ListarAssociadosByFiltro(string filtro)
         {
             var associados = ListarAssociados();
+
+            if (String.IsNullOrEmpty(filtro))
+                return associados;
 
             return associados.Where(a => a.Nome.ToUpper().Contains(filtro.ToUpper()) || 
                                          a.Cpf.Contains(filtro) || 

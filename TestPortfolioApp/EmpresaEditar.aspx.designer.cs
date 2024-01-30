@@ -11,7 +11,7 @@ namespace TestPortfolioApp
 {
 
 
-    public partial class AssociadoEditar
+    public partial class EmpresaEditar
     {
 
         /// <summary>
@@ -33,12 +33,12 @@ namespace TestPortfolioApp
         protected global::System.Web.UI.WebControls.TextBox txtNome;
 
         /// <summary>
-        /// Controle txtCpf.
+        /// Controle txtCnpj.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCpf;
+        protected global::System.Web.UI.WebControls.TextBox txtCnpj;
     }
 }

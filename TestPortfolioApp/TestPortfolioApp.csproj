@@ -108,6 +108,7 @@
     <Content Include="About.aspx" />
     <Content Include="AssociadoCadastrar.aspx" />
     <Content Include="AssociadoEditar.aspx" />
+    <Content Include="Associados.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -115,6 +116,9 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
+    <Content Include="EmpresaCadastrar.aspx" />
+    <Content Include="EmpresaEditar.aspx" />
+    <Content Include="Empresas.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -185,6 +189,13 @@
     <Compile Include="AssociadoEditar.aspx.designer.cs">
       <DependentUpon>AssociadoEditar.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Associados.aspx.cs">
+      <DependentUpon>Associados.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Associados.aspx.designer.cs">
+      <DependentUpon>Associados.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -198,6 +209,27 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EmpresaCadastrar.aspx.cs">
+      <DependentUpon>EmpresaCadastrar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EmpresaCadastrar.aspx.designer.cs">
+      <DependentUpon>EmpresaCadastrar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EmpresaEditar.aspx.cs">
+      <DependentUpon>EmpresaEditar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EmpresaEditar.aspx.designer.cs">
+      <DependentUpon>EmpresaEditar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Empresas.aspx.cs">
+      <DependentUpon>Empresas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Empresas.aspx.designer.cs">
+      <DependentUpon>Empresas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

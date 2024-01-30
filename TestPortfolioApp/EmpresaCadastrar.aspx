@@ -1,50 +1,46 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AssociadoCadastrar.aspx.cs" Inherits="TestPortfolioApp.DetalheAssociado" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EmpresaCadastrar.aspx.cs" Inherits="TestPortfolioApp.EmpresaCadastrar" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 
     <script src="Scripts/jquery-3.4.1.min.js"></script>
-
-
 
     <script type="text/javascript">
 
         function somenteNumeros(e) {
             var charCode = e.charCode ? e.charCode : e.keyCode;
-
+            
             if (charCode != 8 && charCode != 9) {
-
+                
                 if (charCode < 48 || charCode > 57) {
                     return false;
                 }
             }
         }
         
-        function salvarAssociado() {
+        function salvarEmpresa() {
 
-            let associadoForm = {
+            let empresaForm = {
                 Nome: $("[id$=txtNome]").val(),
-                Cpf: $("[id$=txtCpf]").val(),
-                DataNascimento: $("#txtDataNascimento").val()
-
+                Cnpj: $("[id$=txtCnpj]").val()               
             };
 
-            if (associadoForm.Nome == '' || associadoForm.Cpf.length < 11 || associadoForm.DataNascimento.length < 10) {
+            if (associadoForm.Nome == '' || associadoForm.Cnpj.length < 14) {
                 alert('Favor preencher todos os campos!');
                 return;
             }
 
-
             $.ajax({
                 type: "POST",
-                url: "https://localhost:44364/api/associados",
+                url: "https://localhost:44364/api/empresas",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(associadoForm),
+                data: JSON.stringify(empresaForm),
                 success: function (d) {
-                    alert('Associado cadastrado com sucesso');
+                    alert('Empresa cadastrado com sucesso');
 
                 },
                 error: function (error) {
-                    alert('CPF:' + associadoForm.Cpf + ' ja existe na base.');
+                    alert('CNPJ:' + associadoForm.Cpf + ' ja existe na base.');
                 }
             });
         }
@@ -56,25 +52,21 @@
 
       
         <div>
-            <h2>Cadastrar Novo Associado</h2>
+            <h2>Cadastrar Nova Empresa</h2>
             <div>
-                <label>Nome:</label>
+                <label>Nome Empresa</label>
                 <br />
                 <asp:TextBox ID="txtNome" runat="server" />
             </div>
             <div>
-                <label>CPF:</label>
+                <label>CNPJ</label>
                 <br />
-                <asp:TextBox ID="txtCpf" runat="server" MaxLength="11" onkeypress="return somenteNumeros(event)" />
+                <asp:TextBox ID="txtCnpj" runat="server" MaxLength="14" onkeypress="return somenteNumeros(event)" />
             </div>
-            <div>
-                <label>Data de Nascimento:</label>
-                <br />
-                <input type="date" id="txtDataNascimento" />                
-            </div>
+            
             <br />
             <div>
-                <input type="Button" onclick="salvarAssociado();" value="Salvar" /> 
+                <input type="Button" onclick="salvarEmpresa();" value="Salvar" /> 
             </div>
         </div>    
 

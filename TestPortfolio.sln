@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33927.289
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPortfolioAPI", "TestPortfolio\TestPortfolioAPI.csproj", "{9433653B-F0E6-4CE5-A50B-8E34BB4D5E5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPortfolioApp", "TestPortfolioApp\TestPortfolioApp.csproj", "{1B73549E-9D53-4292-8452-CC610D95B650}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9433653B-F0E6-4CE5-A50B-8E34BB4D5E5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9433653B-F0E6-4CE5-A50B-8E34BB4D5E5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9433653B-F0E6-4CE5-A50B-8E34BB4D5E5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9433653B-F0E6-4CE5-A50B-8E34BB4D5E5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B73549E-9D53-4292-8452-CC610D95B650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B73549E-9D53-4292-8452-CC610D95B650}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B73549E-9D53-4292-8452-CC610D95B650}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B73549E-9D53-4292-8452-CC610D95B650}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {789CFDF1-0741-4526-810B-328CE7F1AFD3}
+	EndGlobalSection
+EndGlobal

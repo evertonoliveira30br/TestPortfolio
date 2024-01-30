@@ -81,6 +81,7 @@
         <input type="text" id="txtFiltro" />
         <input type="button" value="Pesquisar" id="btnPesquisar" onclick="PesquisarEmpresas();" />
      </div>
+    <hr />
 
     <table style="width:70%;">
     <thead>

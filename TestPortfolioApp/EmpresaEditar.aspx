@@ -51,7 +51,12 @@
         function vincularAssociado() {
 
             let Id = $("[id$=txtId]").val();
-            let IdAssociado = document.getElementById('ddlAssociados').value;            
+            let IdAssociado = document.getElementById('ddlAssociados').value;
+
+            if (IdAssociado == '' || IdAssociado == 'undefined') {
+                alert('Nenhum Associado foi selecionado!');
+                return;
+            }
 
             $.ajax({
                 type: "POST",
@@ -69,6 +74,27 @@
             });
         }
 
+        function desvincularAssociado(idAssociado) {
+
+            let Id = $("[id$=txtId]").val();
+            
+
+            $.ajax({
+                type: "DELETE",
+                url: "https://localhost:44364/api/empresas/" + Id + "/associado/" + idAssociado,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (d) {
+                    alert('Associado desvinculado com sucesso');
+                    carregarAssociados();
+
+                },
+                error: function (error) {
+                    alert('Erro ao desvincular associado. ' + error.responseText);
+                }
+            });
+        }
+
         function carregarAssociados() {
 
             let Id = $("[id$=txtId]").val();          
@@ -78,7 +104,7 @@
                     $('#associados').empty();
                     $.each(data, function (key, val) {
 
-                        var row = '<td>' + val.Cpf + '</td><td>' + val.Nome + '</td>';
+                        var row = '<td>' + val.Cpf + '</td><td>' + val.Nome + '</td><td><input type="button" value="Desvincular" onclick="desvincularAssociado(' + val.Id + ')"></td>';
                         $('<tr/>', { html: row })
                             .appendTo($('#associados'));
                     });
@@ -158,7 +184,7 @@
         <hr />
 
         <div>
-            <h2>Empresas</h2>
+            <h2>Associados</h2>
             <div>
                 <select id="ddlAssociados"></select>     
                 <input type="Button" id="btnVincularAssociado" onclick="vincularAssociado();" value="Vincular Associado" /> 
@@ -170,7 +196,8 @@
                     <thead>
                         <tr>                            
                             <th>CPF</th>
-                            <th>Nome Associado</th>                           
+                            <th>Nome Associado</th> 
+                            <th>Ação</th>
                          </tr>
                     </thead>
                     <tbody id="associados">

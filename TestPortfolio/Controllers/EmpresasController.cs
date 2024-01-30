@@ -185,6 +185,37 @@ namespace TestPortfolioAPI.Controllers
 
         }
 
+        [Route("{id}/associado/{idAssociado}")]
+        [AcceptVerbs("Delete")]
+        public bool DesvincularAssociado(int id, int idAssociado)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                var queryString = "DELETE associado_empresa WHERE EmpresaId=@id AND AssociadoId=@idAssociado";
+
+                SqlCommand command = new SqlCommand(queryString, connection);
+                command.CommandType = System.Data.CommandType.Text;
+                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@idAssociado", idAssociado);
+
+
+                try
+                {
+                    connection.Open();
+
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+
+            }
+
+        }
+
         [AcceptVerbs("Get")]
         public IEnumerable<Empresa> ListarEmpresasByFiltro(string filtro)
         {

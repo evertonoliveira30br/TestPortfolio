@@ -24,7 +24,7 @@
                 Cnpj: $("[id$=txtCnpj]").val()               
             };
 
-            if (associadoForm.Nome == '' || associadoForm.Cnpj.length < 14) {
+            if (empresaForm.Nome == '' || empresaForm.Cnpj.length < 14) {
                 alert('Favor preencher todos os campos!');
                 return;
             }
@@ -40,7 +40,7 @@
 
                 },
                 error: function (error) {
-                    alert('CNPJ:' + associadoForm.Cpf + ' ja existe na base.');
+                    alert('CNPJ:' + empresaForm.Cnpj + ' ja existe na base.');
                 }
             });
         }

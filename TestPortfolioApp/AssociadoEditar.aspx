@@ -52,7 +52,12 @@
         function vincularEmpresa() {
 
             let Id = $("[id$=txtId]").val();
-            let IdEmpresa = document.getElementById('ddlEmpresas').value;            
+            let IdEmpresa = document.getElementById('ddlEmpresas').value;
+
+            if (IdEmpresa == '' || IdEmpresa == 'undefined') {
+                alert('Nenhuma Empresa foi selecionada!');
+                return;
+            }
 
             $.ajax({
                 type: "POST",
@@ -70,6 +75,27 @@
             });
         }
 
+
+        function desvincularEmpresa(idEmpresa) {
+
+            let Id = $("[id$=txtId]").val();           
+
+            $.ajax({
+                type: "DELETE",
+                url: "https://localhost:44364/api/associados/" + Id + "/empresa/" + idEmpresa,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (d) {
+                    alert('Empresa desvinculada com sucesso');
+                    carregarEmpresas();
+
+                },
+                error: function (error) {
+                    alert('Erro ao desvincular empresa. ' + error.responseText);
+                }
+            });
+        }
+
         function carregarEmpresas() {
 
             let Id = $("[id$=txtId]").val();          
@@ -79,7 +105,7 @@
                     $('#empresas').empty();
                     $.each(data, function (key, val) {
 
-                        var row = '<td>' + val.Cnpj + '</td><td>' + val.Nome + '</td>';
+                        var row = '<td>' + val.Cnpj + '</td><td>' + val.Nome + '</td><td><input type="button" value="Desvincular" onclick="desvincularEmpresa(' + val.Id + ')">' + '</td>';
                         $('<tr/>', { html: row })
                             .appendTo($('#empresas'));
                     });
@@ -168,7 +194,7 @@
             <h2>Empresas</h2>
             <div>
                 <select id="ddlEmpresas"></select>     
-                <input type="Button" id="btnAssociarEmpresa" onclick="vincularEmpresa();" value="Associar Empresa" /> 
+                <input type="Button" id="btnAssociarEmpresa" onclick="vincularEmpresa();" value="Vincular Empresa" /> 
                 
             </div>
             <hr />          
@@ -177,7 +203,8 @@
                     <thead>
                         <tr>                            
                             <th>CNPJ</th>
-                            <th>Nome Empresa</th>                           
+                            <th>Nome Empresa</th>  
+                            <th>Ação</th>
                          </tr>
                     </thead>
                     <tbody id="empresas">
